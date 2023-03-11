@@ -1,0 +1,20 @@
+version: "3.4"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    env_file: .env
+    volumes: 
+      - ./coverage:/app/coverage
+
+  db:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - .docker/data/db:/data/db
+    restart: unless-stopped
